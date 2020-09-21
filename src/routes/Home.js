@@ -6,7 +6,7 @@ import Nweet from "components/Nweet";
 const Home = ({ userObj }) => {
   const [nweet, setNweet] = useState("");
   const [nweets, setNweets] = useState([]);
-  const [attachment, setAttachment] = useState();
+  const [attachment, setAttachment] = useState("");
 
   useEffect(() => {
     dbService.collection("nweets").onSnapshot((snapshot) => {
@@ -35,7 +35,7 @@ const Home = ({ userObj }) => {
   };
 
   const onClearAttachment = () => {
-    setAttachment(null);
+    setAttachment("");
   };
 
   const onSubmit = async (e) => {
@@ -56,7 +56,7 @@ const Home = ({ userObj }) => {
     };
     await dbService.collection("nweets").add(nweetObj);
     setNweet("");
-    setAttachment(null);
+    setAttachment("");
   };
 
   return (
