@@ -30,7 +30,7 @@ const AuthForm = () => {
       } else {
         data = await authService.signInWithEmailAndPassword(email, password);
       }
-      console.log(data);
+      return data;
     } catch (err) {
       setError(err.message);
     }
@@ -39,8 +39,9 @@ const AuthForm = () => {
   const toggleAccount = () => setNewAccount((prev) => !prev);
   return (
     <>
-      <form onSubmit={onSubmit}>
+      <form className="container" onSubmit={onSubmit}>
         <input
+          className="authInput"
           name="email"
           type="text"
           placeholder="Email"
@@ -49,6 +50,7 @@ const AuthForm = () => {
           onChange={onChange}
         />
         <input
+          className="authInput"
           name="password"
           type="password"
           placeholder="Password"
@@ -57,12 +59,13 @@ const AuthForm = () => {
           onChange={onChange}
         />
         <input
+          className="authInput authSubmit"
           type="submit"
           value={newAccount ? "Create Account" : "Sign in"}
         />
-        {error}
+        {error && <span className="authError">{error}</span>}
       </form>
-      <span onClick={toggleAccount}>
+      <span className="authSwitch" onClick={toggleAccount}>
         {newAccount ? "Sign in" : "CreateAccount"}
       </span>
     </>

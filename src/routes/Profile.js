@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { authService, dbService } from "fbase";
+import { authService } from "fbase";
 
 const Profile = ({ userObj, refreshUser }) => {
   const history = useHistory();
@@ -26,32 +26,36 @@ const Profile = ({ userObj, refreshUser }) => {
     }
   };
 
-  const getMyNweets = async () => {
-    const nweets = await dbService
-      .collection("nweets")
-      .where("creatorId", "==", userObj.uid)
-      .orderBy("createAt")
-      .get();
-    // await nweets.docs.map((doc) => doc.data());
-  };
+  // const getMyNweets = async () => {
+  //   const nweets = await dbService
+  //     .collection("nweets")
+  //     .where("creatorId", "==", userObj.uid)
+  //     .orderBy("createAt")
+  //     .get();
+  //   nweets = await nweets.docs.map((doc) => doc.data());
+  // };
 
-  useEffect(() => {
-    getMyNweets();
-  }, []);
+  // useEffect(() => {
+  //   getMyNweets();
+  // }, []);
 
   return (
-    <>
-      <form onSubmit={onSubmit}>
+    <div className="container">
+      <form className="profileForm" onSubmit={onSubmit}>
         <input
+          className="formInput"
           type="text"
           placeholder="Display Name"
           vluae={newDisplayName}
+          autoFocus
           onChange={onChange}
         />
-        <input type="submit" value="Update Profile" />
+        <input className="formBtn" type="submit" value="Update Profile" />
       </form>
-      <button onClick={onLogOutClick}>Log out</button>
-    </>
+      <button className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
+        Log out
+      </button>
+    </div>
   );
 };
 export default Profile;
